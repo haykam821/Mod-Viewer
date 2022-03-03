@@ -1,0 +1,20 @@
+{
+	"text.modviewer.ui.grid.mod.environment": "Environment: %s",
+	"text.modviewer.ui.grid.mod.environment.client": "Client",
+	"text.modviewer.ui.grid.mod.environment.server": "Server",
+	"text.modviewer.ui.grid.mod.environment.universal": "Universal",
+	"text.modviewer.ui.grid.mod.id": "Mod ID: %s",
+	"text.modviewer.ui.grid.mod.license": "License: %s",
+	"text.modviewer.ui.grid.mod.version": "Version: %s",
+	"text.modviewer.ui.title": "Mod Viewer (%d mods)",
+	"text.modviewer.ui.toolbar.toggle_libraries": "Toggle Libraries",
+	"text.modviewer.ui.toolbar.toggle_libraries.hiding": "Currently hiding libraries",
+	"text.modviewer.ui.toolbar.toggle_libraries.showing": "Currently showing libraries",
+	"text.modviewer.ui.view.authors": "Authors",
+	"text.modviewer.ui.view.breaks": "Breaks",
+	"text.modviewer.ui.view.conflicts": "Conflicts",
+	"text.modviewer.ui.view.depends": "Depends",
+	"text.modviewer.ui.view.description": "Description",
+	"text.modviewer.ui.view.recommends": "Recommends",
+	"text.modviewer.ui.view.suggests": "Suggests"
+}

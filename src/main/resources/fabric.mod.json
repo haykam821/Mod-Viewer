@@ -1,0 +1,27 @@
+{
+	"schemaVersion": 1,
+	"id": "modviewer",
+	"version": "${version}",
+	"name": "Mod Viewer",
+	"description": "Adds a server-side user interface for viewing loaded mods to Minecraft.",
+	"authors": [
+		"haykam821"
+	],
+	"contact": {
+		"homepage": "https://github.com/haykam821/Mod-Viewer#readme",
+		"issues": "https://github.com/haykam821/Mod-Viewer/issues"
+	},
+	"entrypoints": {
+		"main": [
+			"io.github.haykam821.modviewer.ModViewer"
+		]
+	},
+	"license": "MIT",
+	"depends": {
+		"fabricloader": ">=0.4.0",
+		"java": ">=17",
+		"fabric": "*",
+		"sgui": "*",
+		"server_translations_api": "*"
+	}
+}
