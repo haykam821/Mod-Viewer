@@ -44,7 +44,7 @@ public class ModGridLayer extends AbstractModLayer {
 			.collect(Collectors.toList());
 	}
 
-	private boolean shouldShow(ModContainer mod) {
+	public boolean shouldShow(ModContainer mod) {
 		return this.ui.shouldShowLibraries() || !ModElement.isLibrary(mod.getMetadata());
 	}
 

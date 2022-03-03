@@ -25,7 +25,7 @@ public class ModViewerUi extends LayeredGui {
 	private ModContainer viewedMod;
 
 	private int page = 0;
-	private boolean showLibraries = true;
+	private boolean showLibraries = false;
 
 	public ModViewerUi(ServerPlayerEntity player) {
 		super(ScreenHandlerType.GENERIC_9X6, player, false);
@@ -40,7 +40,11 @@ public class ModViewerUi extends LayeredGui {
 		this.addLayer(this.viewLayer, SIDEBAR_WIDTH + LAYOUT_SPACING, 0);
 
 		this.mods = FabricLoader.getInstance().getAllMods();
-		this.viewedMod = this.mods.stream().sorted(ModGridLayer.COMPARATOR).findFirst().get();
+		this.viewedMod = this.mods.stream()
+			.filter(this.gridLayer::shouldShow)
+			.sorted(ModGridLayer.COMPARATOR)
+			.findFirst()
+			.get();
 
 		for (int slot = 0; slot < this.getSize(); slot += 1) {
 			if (slot % this.getWidth() > 2) {
