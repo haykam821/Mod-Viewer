@@ -22,6 +22,7 @@
 		"java": ">=17",
 		"fabric": "*",
 		"sgui": "*",
-		"server_translations_api": "*"
+		"server_translations_api": "*",
+		"fabric-permissions-api-v0": "*"
 	}
 }

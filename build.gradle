@@ -19,6 +19,10 @@ repositories {
 		name = "Nucleoid"
 		url = "https://maven.nucleoid.xyz/"
 	}
+	maven {
+		name = "Sonatype"
+		url = "https://oss.sonatype.org/content/repositories/snapshots/"
+	}
 }
 
 dependencies {
@@ -37,6 +41,10 @@ dependencies {
 	// Server Translations API
 	modImplementation("fr.catcore:server-translations-api:${project.server_translations_api_version}")
 	include("fr.catcore:server-translations-api:${project.server_translations_api_version}")
+
+	// Permissions API
+	modImplementation("me.lucko:fabric-permissions-api:${project.permissions_api_version}")
+	include("me.lucko:fabric-permissions-api:${project.permissions_api_version}")
 }
 
 processResources {

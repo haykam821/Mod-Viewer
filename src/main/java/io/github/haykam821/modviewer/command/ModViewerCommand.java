@@ -8,6 +8,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import io.github.haykam821.modviewer.ModViewer;
 import io.github.haykam821.modviewer.ui.ModViewerUi;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 
@@ -18,9 +19,7 @@ public final class ModViewerCommand {
 
 	public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
 		LiteralArgumentBuilder<ServerCommandSource> builder = CommandManager.literal(ModViewer.MOD_ID)
-			.requires(context -> {
-				return context.hasPermissionLevel(2);
-			})
+			.requires(Permissions.require("modviewer.command", 2))
 			.executes(ModViewerCommand::execute);
 
 		dispatcher.register(builder);
