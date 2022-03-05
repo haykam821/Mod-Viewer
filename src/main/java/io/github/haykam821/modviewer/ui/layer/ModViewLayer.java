@@ -1,10 +1,12 @@
 package io.github.haykam821.modviewer.ui.layer;
 
 import eu.pb4.sgui.api.elements.GuiElement;
+import io.github.haykam821.modviewer.MicroIconRenderer;
 import io.github.haykam821.modviewer.ui.ModViewerUi;
 import io.github.haykam821.modviewer.ui.element.AuthorsElement;
 import io.github.haykam821.modviewer.ui.element.DependenciesElement;
 import io.github.haykam821.modviewer.ui.element.DescriptionElement;
+import io.github.haykam821.modviewer.ui.element.IconElement;
 import io.github.haykam821.modviewer.ui.element.ModElement;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModDependency;
@@ -27,6 +29,10 @@ public class ModViewLayer extends AbstractModLayer {
 
 		if (!metadata.getDescription().isBlank()) {
 			this.set(1, 1, DescriptionElement.of(metadata));
+		}
+
+		if (MicroIconRenderer.getIcon(mod) != null) {
+			this.set(2, 1, IconElement.of(mod));
 		}
 
 		if (!metadata.getAuthors().isEmpty() || !metadata.getContributors().isEmpty()) {

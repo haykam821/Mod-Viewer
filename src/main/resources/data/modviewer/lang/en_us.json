@@ -15,6 +15,7 @@
 	"text.modviewer.ui.view.conflicts": "Conflicts",
 	"text.modviewer.ui.view.depends": "Depends",
 	"text.modviewer.ui.view.description": "Description",
+	"text.modviewer.ui.view.icon": "Icon",
 	"text.modviewer.ui.view.recommends": "Recommends",
 	"text.modviewer.ui.view.suggests": "Suggests"
 }
