@@ -17,6 +17,7 @@
 		]
 	},
 	"license": "MIT",
+	"icon": "assets/modviewer/icon.png",
 	"depends": {
 		"fabricloader": ">=0.4.0",
 		"java": ">=17",
