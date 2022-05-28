@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 import io.github.haykam821.modviewer.ui.ModViewerUi;
+import io.github.haykam821.modviewer.ui.element.ErrorElement;
 import io.github.haykam821.modviewer.ui.element.ModElement;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
@@ -31,7 +32,7 @@ public class ModGridLayer extends AbstractModLayer {
 				break;
 			}
 
-			this.setSlot(slot, ModElement.of(this.ui, mod, false));
+			this.setSlot(slot, ErrorElement.wrap(() -> ModElement.of(this.ui, mod, false)));
 			slot += 1;
 		}
 	}
