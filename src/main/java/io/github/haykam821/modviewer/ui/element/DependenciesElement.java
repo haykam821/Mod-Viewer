@@ -8,9 +8,8 @@ import net.fabricmc.loader.api.metadata.ModDependency;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.fabricmc.loader.api.metadata.version.VersionPredicate;
 import net.minecraft.item.Item;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public final class DependenciesElement {
@@ -38,15 +37,15 @@ public final class DependenciesElement {
 		return builder.build();
 	}
 
-	private static MutableText getName(ModDependency.Kind kind) {
+	private static Text getName(ModDependency.Kind kind) {
 		String translationKey = "text.modviewer.ui.view." + kind.getKey();
 		Formatting formatting = DependenciesElement.getFormatting(kind);
 
-		return new TranslatableText(translationKey).formatted(formatting);
+		return Text.translatable(translationKey).formatted(formatting);
 	}
 
-	private static MutableText getLoreLine(ModDependency dependency) {
-		MutableText lore = new LiteralText(dependency.getModId());
+	private static Text getLoreLine(ModDependency dependency) {
+		MutableText lore = Text.literal(dependency.getModId());
 		Formatting formatting = DependenciesElement.getFormatting(dependency.getKind());
 
 		Iterator<VersionPredicate> iterator = dependency.getVersionRequirements().iterator();
@@ -55,7 +54,7 @@ public final class DependenciesElement {
 
 			while (iterator.hasNext()) {
 				VersionPredicate predicate = iterator.next();
-				lore.append(new LiteralText(predicate.toString()).formatted(formatting));
+				lore.append(Text.literal(predicate.toString()).formatted(formatting));
 
 				if (iterator.hasNext()) {
 					lore.append(" || ");

@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import io.github.haykam821.modviewer.command.ModViewerCommand;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 
 public class ModViewer implements ModInitializer {
 	public static final String MOD_ID = "modviewer";
@@ -13,7 +13,7 @@ public class ModViewer implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			ModViewerCommand.register(dispatcher);
 		});
 	}

@@ -3,8 +3,7 @@ package io.github.haykam821.modviewer.ui.element;
 import io.github.haykam821.modviewer.ui.ModViewerUi;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public final class ElementUtil {
@@ -24,11 +23,11 @@ public final class ElementUtil {
 		ui.getPlayer().playSound(SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.MASTER, 1, 1.2f);
 	}
 
-	protected static MutableText getToolbarName(String translationKey) {
-		return new TranslatableText(translationKey).formatted(Formatting.YELLOW);
+	protected static Text getToolbarName(String translationKey) {
+		return Text.translatable(translationKey).formatted(Formatting.YELLOW);
 	}
 
-	public static MutableText getLoreLine(String translationKey, Object... args) {
-		return new TranslatableText(translationKey, args).formatted(Formatting.GRAY);
+	public static Text getLoreLine(String translationKey, Object... args) {
+		return Text.translatable(translationKey, args).formatted(Formatting.GRAY);
 	}
 }

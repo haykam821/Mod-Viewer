@@ -11,7 +11,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 
 public class ModViewerUi extends LayeredGui {
 	private static final int SIDEBAR_WIDTH = 3;
@@ -52,7 +52,7 @@ public class ModViewerUi extends LayeredGui {
 			}
 		}
 
-		this.setTitle(new TranslatableText("text.modviewer.ui.title", this.mods.size()));
+		this.setTitle(Text.translatable("text.modviewer.ui.title", this.mods.size()));
 		this.update();
 	}
 

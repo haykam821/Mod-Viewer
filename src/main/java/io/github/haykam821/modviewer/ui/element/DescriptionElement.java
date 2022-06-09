@@ -9,8 +9,7 @@ import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.item.Items;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public final class DescriptionElement {
@@ -22,10 +21,10 @@ public final class DescriptionElement {
 
 	public static GuiElement of(ModMetadata metadata) {
 		GuiElementBuilder builder = new GuiElementBuilder(Items.WRITABLE_BOOK)
-			.setName(new TranslatableText("text.modviewer.ui.view.description").formatted(Formatting.YELLOW));
+			.setName(Text.translatable("text.modviewer.ui.view.description").formatted(Formatting.YELLOW));
 
 		for (String line : DescriptionElement.getWrappedDescription(metadata)) {
-			builder.addLoreLine(new LiteralText(line).formatted(Formatting.GRAY));
+			builder.addLoreLine(Text.literal(line).formatted(Formatting.GRAY));
 		}
 
 		return builder.build();

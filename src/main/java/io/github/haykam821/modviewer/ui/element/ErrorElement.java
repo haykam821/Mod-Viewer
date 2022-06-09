@@ -6,7 +6,7 @@ import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import io.github.haykam821.modviewer.ModViewer;
 import net.minecraft.item.Items;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public final class ErrorElement {
@@ -27,7 +27,7 @@ public final class ErrorElement {
 
 	private static GuiElement of() {
 		return new GuiElementBuilder(Items.POISONOUS_POTATO)
-			.setName(new TranslatableText("text.modviewer.ui.view.error").formatted(Formatting.YELLOW))
+			.setName(Text.translatable("text.modviewer.ui.view.error").formatted(Formatting.YELLOW))
 			.build();
 	}
 }

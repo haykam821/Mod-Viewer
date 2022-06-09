@@ -12,10 +12,8 @@ import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack.TooltipSection;
 import net.minecraft.item.Items;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
-import net.minecraft.text.TranslatableText;
 
 public final class ModElement {
 	private static final TextColor NAME_COLOR = TextColor.fromRgb(0xF4B41C);
@@ -53,7 +51,7 @@ public final class ModElement {
 		builder.addLoreLine(ElementUtil.getLoreLine("text.modviewer.ui.grid.mod.version", version));
 
 		if (detailed) {
-			MutableText environment = ModElement.getEnvironmentName(metadata);
+			Text environment = ModElement.getEnvironmentName(metadata);
 			builder.addLoreLine(ElementUtil.getLoreLine("text.modviewer.ui.grid.mod.environment", environment));
 
 			String license = String.join(", ", metadata.getLicense());
@@ -111,21 +109,21 @@ public final class ModElement {
 		return false;
 	}
 
-	public static MutableText getName(String name) {
-		return new LiteralText(name).styled(style -> {
+	public static Text getName(String name) {
+		return Text.literal(name).styled(style -> {
 			return style.withColor(NAME_COLOR);
 		});
 	}
 
-	public static MutableText getEnvironmentName(ModMetadata metadata) {
+	public static Text getEnvironmentName(ModMetadata metadata) {
 		ModEnvironment environment = metadata.getEnvironment();
 		switch (environment) {
 			case CLIENT:
-				return new TranslatableText("text.modviewer.ui.grid.mod.environment.client");
+				return Text.translatable("text.modviewer.ui.grid.mod.environment.client");
 			case SERVER:
-				return new TranslatableText("text.modviewer.ui.grid.mod.environment.server");
+				return Text.translatable("text.modviewer.ui.grid.mod.environment.server");
 			case UNIVERSAL:
-				return new TranslatableText("text.modviewer.ui.grid.mod.environment.universal");
+				return Text.translatable("text.modviewer.ui.grid.mod.environment.universal");
 			default:
 				return null;
 		}

@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -25,7 +24,7 @@ public final class MicroIconRenderer {
 
 	private static final String PIXEL_STRING = "█";
 	private static final String TRANSPARENCY_STRING = "▒";
-	private static final Text TRANSPARENCY_TEXT = new LiteralText(TRANSPARENCY_STRING).formatted(Formatting.BLACK);
+	private static final Text TRANSPARENCY_TEXT = Text.literal(TRANSPARENCY_STRING).formatted(Formatting.BLACK);
 
 	private static final Map<String, Text[]> CACHE = new HashMap<>();
 
@@ -52,7 +51,7 @@ public final class MicroIconRenderer {
 
 				MutableText[] rendered = new MutableText[image.getHeight()];
 				for (int y = 0; y < image.getHeight(); y += 1) {
-					rendered[y] = new LiteralText("");
+					rendered[y] = Text.empty();
 					for (int x = 0; x < image.getWidth(); x += 1) {
 						int argba = image.getRGB(x, y);
 						rendered[y].append(pixels.computeIfAbsent(argba, MicroIconRenderer::getPixel));
@@ -92,7 +91,7 @@ public final class MicroIconRenderer {
 		if (alpha == 0x00) return TRANSPARENCY_TEXT;
 
 		TextColor color = TextColor.fromRgb(argba & 0xFFFFFF);
-		return new LiteralText(alpha >= 0 ? TRANSPARENCY_STRING : PIXEL_STRING).styled(style -> {
+		return Text.literal(alpha >= 0 ? TRANSPARENCY_STRING : PIXEL_STRING).styled(style -> {
 			return style.withColor(color);
 		});
 	}

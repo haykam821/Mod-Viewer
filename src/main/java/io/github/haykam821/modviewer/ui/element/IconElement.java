@@ -6,7 +6,6 @@ import io.github.haykam821.modviewer.MicroIconRenderer;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
 public final class IconElement {
@@ -16,7 +15,7 @@ public final class IconElement {
 
 	public static GuiElement of(ModContainer mod) {
 		GuiElementBuilder builder = new GuiElementBuilder(Items.PAINTING)
-			.setName(new TranslatableText("text.modviewer.ui.view.icon").formatted(Formatting.YELLOW));
+			.setName(Text.translatable("text.modviewer.ui.view.icon").formatted(Formatting.YELLOW));
 
 		for (Text line : MicroIconRenderer.getIcon(mod)) {
 			builder.addLoreLine(line);
