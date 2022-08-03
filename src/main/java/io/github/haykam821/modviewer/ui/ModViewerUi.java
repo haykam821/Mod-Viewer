@@ -2,7 +2,11 @@ package io.github.haykam821.modviewer.ui;
 
 import java.util.Collection;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+
 import eu.pb4.sgui.api.gui.layered.LayeredGui;
+import io.github.haykam821.modviewer.command.ModViewerCommand;
+import io.github.haykam821.modviewer.command.ModViewerPermissions;
 import io.github.haykam821.modviewer.ui.element.BackgroundElement;
 import io.github.haykam821.modviewer.ui.layer.ModGridLayer;
 import io.github.haykam821.modviewer.ui.layer.ModToolbarLayer;
@@ -27,7 +31,7 @@ public class ModViewerUi extends LayeredGui {
 	private int page = 0;
 	private boolean showLibraries = false;
 
-	public ModViewerUi(ServerPlayerEntity player) {
+	public ModViewerUi(ServerPlayerEntity player) throws CommandSyntaxException {
 		super(ScreenHandlerType.GENERIC_9X6, player, false);
 
 		this.gridLayer = new ModGridLayer(this, SIDEBAR_WIDTH, this.height - 1);
@@ -44,7 +48,7 @@ public class ModViewerUi extends LayeredGui {
 			.filter(this.gridLayer::shouldShow)
 			.sorted(ModGridLayer.COMPARATOR)
 			.findFirst()
-			.get();
+			.orElseThrow(ModViewerCommand.NO_VIEWABLE_MODS::create);
 
 		for (int slot = 0; slot < this.getSize(); slot += 1) {
 			if (slot % this.getWidth() > 2) {
@@ -65,8 +69,10 @@ public class ModViewerUi extends LayeredGui {
 	}
 
 	public void setViewedMod(ModContainer viewedMod) {
-		this.viewedMod = viewedMod;
-		this.update();
+		if (ModViewerPermissions.canViewMod(this.getPlayer(), viewedMod)) {
+			this.viewedMod = viewedMod;
+			this.update();
+		}
 	}
 
 	public int getPage() {

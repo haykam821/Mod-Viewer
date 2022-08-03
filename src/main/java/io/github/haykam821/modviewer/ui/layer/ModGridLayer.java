@@ -3,6 +3,7 @@ package io.github.haykam821.modviewer.ui.layer;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+import io.github.haykam821.modviewer.command.ModViewerPermissions;
 import io.github.haykam821.modviewer.ui.ModViewerUi;
 import io.github.haykam821.modviewer.ui.element.ErrorElement;
 import io.github.haykam821.modviewer.ui.element.ModElement;
@@ -46,6 +47,10 @@ public class ModGridLayer extends AbstractModLayer {
 	}
 
 	public boolean shouldShow(ModContainer mod) {
+		if (!ModViewerPermissions.canViewMod(this.ui.getPlayer(), mod)) {
+			return false;
+		}
+
 		return this.ui.shouldShowLibraries() || !ModElement.isLibrary(mod.getMetadata());
 	}
 

@@ -21,3 +21,5 @@ When this mod is installed, permitted players will be able to use the `/modviewe
 ## Permissions
 
 By default, the `/modviewer` command is available to level two operators. If a permission mod that supports permission keys is installed, then the `modviewer.command` permission key controls availability instead.
+
+In addition, permission keys of the format `modviewer.view_mod.<id>`, where `<id>` is the ID of the mod, control the visibility of mods on an individual basis.
