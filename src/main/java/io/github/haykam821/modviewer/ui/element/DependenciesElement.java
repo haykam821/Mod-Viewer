@@ -1,9 +1,12 @@
 package io.github.haykam821.modviewer.ui.element;
 
 import java.util.Iterator;
+import java.util.Optional;
 
 import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModDependency;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.fabricmc.loader.api.metadata.version.VersionPredicate;
@@ -13,6 +16,10 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public final class DependenciesElement {
+	private static final Text UNFULFILLED_SYMBOL = Text.literal("❌").formatted(Formatting.RED);
+	private static final Text PARTIALLY_FULFILLED_SYMBOL = Text.literal("⚠").formatted(Formatting.YELLOW);
+	private static final Text FULFILLED_SYMBOL = Text.literal("✔").formatted(Formatting.GREEN);
+
 	private DependenciesElement() {
 		return;
 	}
@@ -45,7 +52,12 @@ public final class DependenciesElement {
 	}
 
 	private static Text getLoreLine(ModDependency dependency) {
-		MutableText lore = Text.literal(dependency.getModId());
+		MutableText lore = Text.empty();
+
+		Optional<ModContainer> mod = FabricLoader.getInstance().getModContainer(dependency.getModId());
+		lore.append(DependenciesElement.getDependencyFulfillmentSymbol(mod, dependency));
+
+		lore.append(" " + dependency.getModId());
 		Formatting formatting = DependenciesElement.getFormatting(dependency.getKind());
 
 		Iterator<VersionPredicate> iterator = dependency.getVersionRequirements().iterator();
@@ -67,5 +79,15 @@ public final class DependenciesElement {
 
 	private static Formatting getFormatting(ModDependency.Kind kind) {
 		return kind.isPositive() ? Formatting.GREEN : Formatting.RED;
+	}
+
+	private static Text getDependencyFulfillmentSymbol(Optional<ModContainer> mod, ModDependency dependency) {
+		if (mod.isEmpty()) {
+			return UNFULFILLED_SYMBOL;
+		} else if (dependency.matches(mod.get().getMetadata().getVersion())) {
+			return FULFILLED_SYMBOL;
+		} else {
+			return PARTIALLY_FULFILLED_SYMBOL;
+		}
 	}
 }
