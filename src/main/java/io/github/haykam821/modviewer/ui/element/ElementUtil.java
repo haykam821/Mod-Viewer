@@ -12,7 +12,7 @@ public final class ElementUtil {
 	}
 
 	protected static void playClickSound(ModViewerUi ui) {
-		ui.getPlayer().playSound(SoundEvents.UI_BUTTON_CLICK, SoundCategory.MASTER, 1, 1);
+		ui.getPlayer().playSound(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.MASTER, 1, 1);
 	}
 
 	protected static void playSelectSound(ModViewerUi ui) {
