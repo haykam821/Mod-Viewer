@@ -9,7 +9,8 @@
 	],
 	"contact": {
 		"homepage": "https://github.com/haykam821/Mod-Viewer#readme",
-		"issues": "https://github.com/haykam821/Mod-Viewer/issues"
+		"issues": "https://github.com/haykam821/Mod-Viewer/issues",
+		"sources": "https://github.com/haykam821/Mod-Viewer"
 	},
 	"entrypoints": {
 		"main": [
