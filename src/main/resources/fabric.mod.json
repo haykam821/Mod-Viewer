@@ -16,6 +16,13 @@
 			"io.github.haykam821.modviewer.ModViewer"
 		]
 	},
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "https://haykam.com/links/discord"
+			}
+		}
+	},
 	"license": "MIT",
 	"icon": "assets/modviewer/icon.png",
 	"depends": {
