@@ -92,7 +92,7 @@ public final class MicroIconRenderer {
 
 		TextColor color = TextColor.fromRgb(argba & 0xFFFFFF);
 		return Text.literal(alpha >= 0 ? TRANSPARENCY_STRING : PIXEL_STRING).styled(style -> {
-			return style.withColor(color);
+			return style.withColor(color).withItalic(false);
 		});
 	}
 }

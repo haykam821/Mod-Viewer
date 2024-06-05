@@ -3,6 +3,7 @@ package io.github.haykam821.modviewer.ui.element;
 import io.github.haykam821.modviewer.ui.ModViewerUi;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -12,15 +13,15 @@ public final class ElementUtil {
 	}
 
 	protected static void playClickSound(ModViewerUi ui) {
-		ui.getPlayer().playSound(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.MASTER, 1, 1);
+		ui.getPlayer().playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.MASTER, 1, 1);
 	}
 
 	protected static void playSelectSound(ModViewerUi ui) {
-		ui.getPlayer().playSound(SoundEvents.ITEM_BUNDLE_REMOVE_ONE, SoundCategory.MASTER, 1, 1.5f);
+		ui.getPlayer().playSoundToPlayer(SoundEvents.ITEM_BUNDLE_REMOVE_ONE, SoundCategory.MASTER, 1, 1.5f);
 	}
 
 	protected static void playFilterSound(ModViewerUi ui) {
-		ui.getPlayer().playSound(SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.MASTER, 1, 1.2f);
+		ui.getPlayer().playSoundToPlayer(SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.MASTER, 1, 1.2f);
 	}
 
 	protected static Text getToolbarName(String translationKey) {
@@ -28,6 +29,12 @@ public final class ElementUtil {
 	}
 
 	public static Text getLoreLine(String translationKey, Object... args) {
-		return Text.translatable(translationKey, args).formatted(Formatting.GRAY);
+		return styleLoreLine(Text.translatable(translationKey, args));
+	}
+
+	protected static Text styleLoreLine(MutableText text) {
+		return text.styled(style -> {
+			return style.withFormatting(Formatting.GRAY).withItalic(false);
+		});
 	}
 }

@@ -24,7 +24,7 @@ public final class DescriptionElement {
 			.setName(Text.translatable("text.modviewer.ui.view.description").formatted(Formatting.YELLOW));
 
 		for (String line : DescriptionElement.getWrappedDescription(metadata)) {
-			builder.addLoreLine(Text.literal(line).formatted(Formatting.GRAY));
+			builder.addLoreLine(ElementUtil.styleLoreLine(Text.literal(line)));
 		}
 
 		return builder.build();

@@ -10,7 +10,6 @@ import net.fabricmc.loader.api.metadata.CustomValue.CvType;
 import net.fabricmc.loader.api.metadata.ModEnvironment;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack.TooltipSection;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -24,7 +23,7 @@ public final class ModElement {
 
 	public static GuiElement of(ModViewerUi ui, ModContainer mod, boolean detailed) {
 		GuiElementBuilder builder = new GuiElementBuilder(ModElement.getItem(mod.getMetadata()))
-			.hideFlag(TooltipSection.ADDITIONAL);
+			.hideDefaultTooltip();
 
 		ModElement.buildInfo(builder, mod.getMetadata(), detailed);
 

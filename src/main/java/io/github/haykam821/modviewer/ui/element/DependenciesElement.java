@@ -74,7 +74,7 @@ public final class DependenciesElement {
 			}
 		}
 
-		return lore.formatted(Formatting.GRAY);
+		return ElementUtil.styleLoreLine(lore);
 	}
 
 	private static Formatting getFormatting(ModDependency.Kind kind) {

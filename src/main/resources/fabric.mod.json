@@ -28,7 +28,7 @@
 	"icon": "assets/modviewer/icon.png",
 	"depends": {
 		"fabricloader": ">=0.4.0",
-		"java": ">=17",
+		"java": ">=21",
 		"fabric": "*",
 		"sgui": "*",
 		"server_translations_api": "*",

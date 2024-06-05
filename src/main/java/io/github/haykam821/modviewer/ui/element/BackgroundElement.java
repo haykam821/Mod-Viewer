@@ -15,6 +15,7 @@ public final class BackgroundElement {
 	private static GuiElement of() {
 		return new GuiElementBuilder(Items.WHITE_STAINED_GLASS_PANE)
 			.setName(Text.empty())
+			.hideTooltip()
 			.build();
 	}
 }
