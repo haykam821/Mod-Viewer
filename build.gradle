@@ -3,9 +3,6 @@ plugins {
 	id "maven-publish"
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
-
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
@@ -18,10 +15,6 @@ repositories {
 	maven {
 		name = "Nucleoid"
 		url = "https://maven.nucleoid.xyz/"
-	}
-	maven {
-		name = "Sonatype"
-		url = "https://oss.sonatype.org/content/repositories/snapshots/"
 	}
 }
 
@@ -39,11 +32,13 @@ dependencies {
 	include("eu.pb4:sgui:${project.sgui_version}")
 
 	// Server Translations API
-	modImplementation("fr.catcore:server-translations-api:${project.server_translations_api_version}")
-	include("fr.catcore:server-translations-api:${project.server_translations_api_version}")
+	modImplementation("xyz.nucleoid:server-translations-api:${project.server_translations_api_version}")
+	include("xyz.nucleoid:server-translations-api:${project.server_translations_api_version}")
 
 	// Permissions API
-	modImplementation("me.lucko:fabric-permissions-api:${project.permissions_api_version}")
+	modImplementation("me.lucko:fabric-permissions-api:${project.permissions_api_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
 	include("me.lucko:fabric-permissions-api:${project.permissions_api_version}")
 }
 
@@ -55,7 +50,13 @@ processResources {
 	}
 }
 
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
+
 tasks.withType(JavaCompile) {
+	options.release = 17
 	options.encoding = "UTF-8"
 }
 
