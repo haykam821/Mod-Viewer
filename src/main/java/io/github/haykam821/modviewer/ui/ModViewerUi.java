@@ -9,6 +9,7 @@ import eu.pb4.sgui.api.gui.layered.LayeredGui;
 import io.github.haykam821.modviewer.command.ModViewerCommand;
 import io.github.haykam821.modviewer.command.ModViewerPermissions;
 import io.github.haykam821.modviewer.ui.element.BackgroundElement;
+import io.github.haykam821.modviewer.ui.element.ModElement;
 import io.github.haykam821.modviewer.ui.layer.ModGridLayer;
 import io.github.haykam821.modviewer.ui.layer.ModToolbarLayer;
 import io.github.haykam821.modviewer.ui.layer.ModViewLayer;
@@ -29,7 +30,7 @@ public class ModViewerUi extends LayeredGui {
 	private ModContainer viewedMod;
 
 	private int page = 0;
-	private boolean showLibraries = false;
+	private boolean showLibraries;
 
 	public ModViewerUi(ServerPlayerEntity player) throws CommandSyntaxException {
 		super(ScreenHandlerType.GENERIC_9X6, player, false);
@@ -43,9 +44,11 @@ public class ModViewerUi extends LayeredGui {
 		this.viewLayer = new ModViewLayer(this, this.width - SIDEBAR_WIDTH - LAYOUT_SPACING, this.height);
 		this.addLayer(this.viewLayer, SIDEBAR_WIDTH + LAYOUT_SPACING, 0);
 
-		this.viewedMod = this.streamMods(true)
-			.findFirst()
+		this.viewedMod = this.streamMods(true).findFirst()
+			.or(() -> this.streamMods(false).findFirst())
 			.orElseThrow(ModViewerCommand.NO_VIEWABLE_MODS::create);
+
+		this.showLibraries = ModElement.isLibrary(this.viewedMod.getMetadata());
 
 		for (int slot = 0; slot < this.getSize(); slot += 1) {
 			if (slot % this.getWidth() > 2) {
@@ -100,7 +103,10 @@ public class ModViewerUi extends LayeredGui {
 		}
 
 		int maxPage = this.gridLayer.getMaxPage();
-		if (page >= maxPage) {
+
+		if (maxPage == 0) {
+			page = 0;
+		} else if (page >= maxPage) {
 			page = maxPage - 1;
 		}
 	}
