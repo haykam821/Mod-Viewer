@@ -1,7 +1,8 @@
 package io.github.haykam821.modviewer.ui;
 
-import java.util.Collection;
+import java.util.stream.Stream;
 
+import com.google.common.base.Predicates;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import eu.pb4.sgui.api.gui.layered.LayeredGui;
@@ -25,7 +26,6 @@ public class ModViewerUi extends LayeredGui {
 	private final ModToolbarLayer toolbarLayer;
 	private final ModViewLayer viewLayer;
 
-	private final Collection<ModContainer> mods;
 	private ModContainer viewedMod;
 
 	private int page = 0;
@@ -43,10 +43,7 @@ public class ModViewerUi extends LayeredGui {
 		this.viewLayer = new ModViewLayer(this, this.width - SIDEBAR_WIDTH - LAYOUT_SPACING, this.height);
 		this.addLayer(this.viewLayer, SIDEBAR_WIDTH + LAYOUT_SPACING, 0);
 
-		this.mods = FabricLoader.getInstance().getAllMods();
-		this.viewedMod = this.mods.stream()
-			.filter(this.gridLayer::shouldShow)
-			.sorted(ModGridLayer.COMPARATOR)
+		this.viewedMod = this.streamMods(true)
 			.findFirst()
 			.orElseThrow(ModViewerCommand.NO_VIEWABLE_MODS::create);
 
@@ -56,12 +53,14 @@ public class ModViewerUi extends LayeredGui {
 			}
 		}
 
-		this.setTitle(Text.translatable("text.modviewer.ui.title", this.mods.size()));
 		this.update();
 	}
 
-	public Collection<ModContainer> getMods() {
-		return FabricLoader.getInstance().getAllMods();
+	public Stream<ModContainer> streamMods(boolean filtered) {
+		return FabricLoader.getInstance().getAllMods().stream()
+			.filter(mod -> ModViewerPermissions.canViewMod(this.getPlayer(), mod))
+			.filter(filtered ? this.gridLayer::shouldShow : Predicates.alwaysTrue())
+			.sorted(ModGridLayer.COMPARATOR);
 	}
 
 	public ModContainer getViewedMod() {
@@ -116,6 +115,7 @@ public class ModViewerUi extends LayeredGui {
 	}
 
 	public void update() {
+		this.setTitle(Text.translatable("text.modviewer.ui.title", this.streamMods(false).count()));
 		this.clampPage();
 
 		this.gridLayer.update();

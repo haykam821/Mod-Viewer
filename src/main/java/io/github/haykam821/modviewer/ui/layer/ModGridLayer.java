@@ -3,7 +3,6 @@ package io.github.haykam821.modviewer.ui.layer;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-import io.github.haykam821.modviewer.command.ModViewerPermissions;
 import io.github.haykam821.modviewer.ui.ModViewerUi;
 import io.github.haykam821.modviewer.ui.element.ErrorElement;
 import io.github.haykam821.modviewer.ui.element.ModElement;
@@ -39,29 +38,17 @@ public class ModGridLayer extends AbstractModLayer {
 	}
 
 	private Iterable<ModContainer> getPageEntries() {
-		return this.ui.getMods().stream()
-			.filter(this::shouldShow)
-			.sorted(COMPARATOR)
+		return this.ui.streamMods(true)
 			.skip(this.getSize() * this.ui.getPage())
 			.collect(Collectors.toList());
 	}
 
 	public boolean shouldShow(ModContainer mod) {
-		if (!ModViewerPermissions.canViewMod(this.ui.getPlayer(), mod)) {
-			return false;
-		}
-
 		return this.ui.shouldShowLibraries() || !ModElement.isLibrary(mod.getMetadata());
 	}
 
 	public int getMaxPage() {
-		int shown = 0;
-		for (ModContainer mod : this.ui.getMods()) {
-			if (this.shouldShow(mod)) {
-				shown += 1;
-			}
-		}
-
+		long shown = this.ui.streamMods(true).count();
 		return MathHelper.ceil(shown / (float) this.getSize());
 	}
 }
