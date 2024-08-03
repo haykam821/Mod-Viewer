@@ -1,6 +1,7 @@
 package io.github.haykam821.modviewer.ui.layer;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import io.github.haykam821.modviewer.ui.ModViewerUi;
@@ -45,6 +46,13 @@ public class ModGridLayer extends AbstractModLayer {
 
 	public boolean shouldShow(ModContainer mod) {
 		return this.ui.shouldShowLibraries() || !ModElement.isLibrary(mod.getMetadata());
+	}
+
+	public int getPageContainingMod(ModContainer mod) {
+		List<ModContainer> mods = this.ui.streamMods(true)
+			.collect(Collectors.toList());
+
+		return mods.indexOf(mod) / this.getSize();
 	}
 
 	public int getMaxPage() {

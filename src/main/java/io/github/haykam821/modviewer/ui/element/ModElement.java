@@ -130,7 +130,7 @@ public final class ModElement {
 
 	private static ClickCallback createCallback(ModViewerUi ui, ModContainer mod) {
 		return (index, type, action, guiInterface) -> {
-			ui.setViewedMod(mod);
+			ui.setViewedMod(mod, false);
 			ElementUtil.playSelectSound(ui);
 		};
 	}

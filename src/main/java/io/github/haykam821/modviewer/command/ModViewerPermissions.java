@@ -15,13 +15,26 @@ public final class ModViewerPermissions {
 		return Permissions.check(source, COMMAND_KEY, DEFAULT_REQUIRED_LEVEL);
 	}
 
-	public static boolean canViewMod(ServerPlayerEntity player, ModContainer mod) {
+	private static String getViewModKey(ModContainer mod) {
 		if (mod == null) {
-			return true;
+			return null;
 		}
 
-		String key = VIEW_MOD_KEY_PREFIX + mod.getMetadata().getId();
+		return VIEW_MOD_KEY_PREFIX + mod.getMetadata().getId();
+	}
+
+	public static boolean canViewMod(ServerPlayerEntity player, ModContainer mod) {
+		String key = getViewModKey(mod);
+		if (key == null) return true;
+
 		return Permissions.check(player, key, DEFAULT_REQUIRED_LEVEL);
+	}
+
+	public static boolean canViewMod(ServerCommandSource source, ModContainer mod) {
+		String key = getViewModKey(mod);
+		if (key == null) return true;
+
+		return Permissions.check(source, key, DEFAULT_REQUIRED_LEVEL);
 	}
 
 	private ModViewerPermissions() {

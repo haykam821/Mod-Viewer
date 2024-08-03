@@ -1,5 +1,6 @@
 {
 	"text.modviewer.command.no_viewable_mods": "No mods would be viewable",
+	"text.modviewer.command.unknown_mod": "Unknown mod '%s'",
 	"text.modviewer.ui.grid.mod.environment": "Environment: %s",
 	"text.modviewer.ui.grid.mod.environment.client": "Client",
 	"text.modviewer.ui.grid.mod.environment.server": "Server",

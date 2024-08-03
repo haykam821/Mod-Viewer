@@ -70,9 +70,18 @@ public class ModViewerUi extends LayeredGui {
 		return this.viewedMod;
 	}
 
-	public void setViewedMod(ModContainer viewedMod) {
+	public void setViewedMod(ModContainer viewedMod, boolean focusInGrid) {
 		if (ModViewerPermissions.canViewMod(this.getPlayer(), viewedMod)) {
 			this.viewedMod = viewedMod;
+
+			if (focusInGrid) {
+				if (ModElement.isLibrary(viewedMod.getMetadata())) {
+					this.showLibraries = true;
+				}
+
+				this.page = this.gridLayer.getPageContainingMod(viewedMod);
+			}
+
 			this.update();
 		}
 	}
